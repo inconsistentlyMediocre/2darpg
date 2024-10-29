@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://rdlihgojn3u4"]
+
+[ext_resource type="Texture2D" uid="uid://cmd3e3yxse5d1" path="res://ui/hp_container/hp.png" id="1_fi6w6"]
+[ext_resource type="Script" path="res://ui/hp_container/texture_frames_rect.gd" id="2_4gvab"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glodu"]
+atlas = ExtResource("1_fi6w6")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyh3j"]
+atlas = ExtResource("1_fi6w6")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whjra"]
+atlas = ExtResource("1_fi6w6")
+region = Rect2(0, 12, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7g2y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glodu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyh3j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whjra")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Heart" type="TextureRect"]
+custom_minimum_size = Vector2(12, 12)
+offset_right = 12.0
+offset_bottom = 12.0
+texture = SubResource("AtlasTexture_glodu")
+stretch_mode = 3
+script = ExtResource("2_4gvab")
+texture_frames = SubResource("SpriteFrames_c7g2y")

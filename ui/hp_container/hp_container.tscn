@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuyrkuj7y5qp7"]
+
+[ext_resource type="Script" path="res://ui/hp_container/hp_container.gd" id="1_adkwd"]
+
+[node name="HPContainer" type="GridContainer"]
+offset_right = 152.0
+offset_bottom = 32.0
+theme_override_constants/h_separation = 0
+columns = 10
+script = ExtResource("1_adkwd")
+hp = 0

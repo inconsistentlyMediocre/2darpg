@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cudqvseaf1awl"]
+
+[ext_resource type="Script" path="res://ui/ui_display.gd" id="1_k4kda"]
+[ext_resource type="PackedScene" uid="uid://cuyrkuj7y5qp7" path="res://ui/hp_container/hp_container.tscn" id="1_q7ct3"]
+
+[node name="UIDisplay" type="CanvasLayer"]
+script = ExtResource("1_k4kda")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HPContainer" parent="Control" instance=ExtResource("1_q7ct3")]
+visible = false
+layout_mode = 0

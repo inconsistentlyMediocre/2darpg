@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=3 uid="uid://ds6iqhfbvm7dy"]
+
+[ext_resource type="Script" path="res://entities/npcs/npc.gd" id="1_df8jo"]
+[ext_resource type="Texture2D" uid="uid://cqbgqsc6nnol" path="res://entities/player/player.png" id="2_786g6"]
+[ext_resource type="Texture2D" uid="uid://d1t87vq207rd1" path="res://entities/player/sword_attack.png" id="3_0s5p7"]
+[ext_resource type="Script" path="res://entities/debug_enemy/enemy_movement_manager.gd" id="4_b85xp"]
+[ext_resource type="PackedScene" uid="uid://d1dxg0e2j0623" path="res://components/state_machine_component.tscn" id="5_dqpfp"]
+[ext_resource type="Script" path="res://components/state_machine_component.gd" id="6_w8g3w"]
+[ext_resource type="Script" path="res://components/states/idle.gd" id="7_27c17"]
+[ext_resource type="Script" path="res://components/states/move.gd" id="8_645aj"]
+[ext_resource type="PackedScene" uid="uid://d1skyapqmnkx6" path="res://components/interactable_component.tscn" id="9_xkeht"]
+[ext_resource type="Resource" path="res://dialogue/debug_npc.dtl" id="10_7f5m8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1yq0l"]
+size = Vector2(10, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlp7y"]
+size = Vector2(13, 13)
+
+[node name="NPC" type="CharacterBody2D"]
+script = ExtResource("1_df8jo")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Graphics"]
+modulate = Color(0, 0, 0, 1)
+texture = ExtResource("2_786g6")
+offset = Vector2(0, -10)
+hframes = 6
+vframes = 4
+
+[node name="SwordSprite" type="Sprite2D" parent="Graphics"]
+visible = false
+texture = ExtResource("3_0s5p7")
+hframes = 5
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_1yq0l")
+disabled = true
+
+[node name="Components" type="Node2D" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Components"]
+target_desired_distance = 24.0
+path_postprocessing = 1
+
+[node name="Timer" type="Timer" parent="Components"]
+autostart = true
+
+[node name="EnemyMovementManager" type="Node" parent="Components" node_paths=PackedStringArray("nav_agent")]
+script = ExtResource("4_b85xp")
+nav_agent = NodePath("../NavigationAgent2D")
+
+[node name="StateMachine" parent="Components" node_paths=PackedStringArray("starting_state", "movement_manager") instance=ExtResource("5_dqpfp")]
+script = ExtResource("6_w8g3w")
+starting_state = NodePath("Idle")
+movement_manager = NodePath("../EnemyMovementManager")
+
+[node name="Idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("7_27c17")
+move_state = NodePath("../Move")
+animation_name = "idle"
+velocity_weight = 10.0
+
+[node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state")]
+script = ExtResource("8_645aj")
+idle_state = NodePath("../Idle")
+animation_name = "walk"
+speed = 50.0
+
+[node name="Interactable" parent="Components" instance=ExtResource("9_xkeht")]
+dialogue_timeline = ExtResource("10_7f5m8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Interactable"]
+position = Vector2(-0.5, -3.5)
+shape = SubResource("RectangleShape2D_jlp7y")
+debug_color = Color(0.757116, 0.186481, 1, 0.42)
