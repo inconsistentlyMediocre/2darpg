@@ -10,7 +10,7 @@ extends Node
 var parent: CharacterBody2D
 var animation_player: AnimationPlayer
 var movement_manager: MovementManager
-
+var animation_finished: bool = false
 
 func enter() -> void:
 	movement_manager.direction_updated.connect(play_animation)
@@ -45,5 +45,13 @@ func get_interaction() -> bool:
 	return movement_manager.get_interaction()
 
 
+func get_roll() -> bool:
+	return movement_manager.get_roll()
+
+
 func play_animation() -> void:
 	animation_player.play(animation_name + "_" + movement_manager.direction_string)
+
+
+func _on_animation_finished(anim_name: String) -> void:
+	animation_finished = true

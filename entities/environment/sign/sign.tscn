@@ -1,12 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://pm03dgcbynkg"]
+[gd_scene load_steps=12 format=3 uid="uid://pm03dgcbynkg"]
 
-[ext_resource type="Script" path="res://entities/environment/destructible.gd" id="1_31mw2"]
+[ext_resource type="Script" path="res://entities/environment/sign/sign.gd" id="1_lkhk2"]
 [ext_resource type="Texture2D" uid="uid://djxccvdatq51i" path="res://entities/environment/sign/sign.png" id="1_oidds"]
 [ext_resource type="Texture2D" uid="uid://pgek61kny8fh" path="res://entities/environment/sign/sign_cut.png" id="2_7l1sr"]
+[ext_resource type="Resource" path="res://entities/environment/sign/dialogue/sign_broken.dtl" id="2_bghh4"]
 [ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/hurtbox_component.tscn" id="2_ijkty"]
 [ext_resource type="Script" path="res://components/health_manager_component.gd" id="5_8x4td"]
 [ext_resource type="PackedScene" uid="uid://d1skyapqmnkx6" path="res://components/interactable_component.tscn" id="6_pakmx"]
-[ext_resource type="Resource" path="res://dialogue/sign_1.dtl" id="7_n3m6j"]
+[ext_resource type="Resource" path="res://entities/environment/sign/dialogue/sign_1.dtl" id="7_n3m6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5kvxm"]
 size = Vector2(14, 11)
@@ -21,12 +22,12 @@ size = Vector2(12, 6)
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_31mw2")
+script = ExtResource("1_lkhk2")
+broken_dialogue_timeline = ExtResource("2_bghh4")
 hurtbox = NodePath("Components/Hurtbox")
 hp_manager = NodePath("Components/HPManager")
 destroyed_texture = ExtResource("2_7l1sr")
 interactable_component = NodePath("Components/Interactable")
-dialogue_variable_name = "sign_broken"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_oidds")

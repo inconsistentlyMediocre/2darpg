@@ -6,6 +6,7 @@ extends Area2D
 
 
 @export var hp_manager: HPManager
+@export var disabled: bool = false
 
 var parent: CharacterBody2D
 
@@ -15,6 +16,8 @@ func _ready() -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if disabled:
+		return
 	if area is Hitbox:
 		if area.hitbox_owner != parent:
 			#damage_received.emit(area.attack)

@@ -6,7 +6,6 @@ extends StaticBody2D
 @export var hp_manager: HPManager
 @export var destroyed_texture: Texture2D
 @export var interactable_component: Interactable
-@export var dialogue_variable_name: String
 @onready var sprite: Sprite2D = $Sprite2D
 
 
@@ -20,4 +19,3 @@ func _ready() -> void:
 
 func destroy() -> void:
 	sprite.texture = destroyed_texture
-	Dialogic.VAR.set_variable(dialogue_variable_name, true)
