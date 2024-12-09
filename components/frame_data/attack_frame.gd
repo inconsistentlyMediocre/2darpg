@@ -21,5 +21,6 @@ func _enter_tree() -> void:
 func add_hitbox() -> void:
 	var new_hitbox: FrameDataHitbox = FrameDataHitbox.new()
 	new_hitbox.name = "Hitbox_" + str(get_child_count())
+	new_hitbox.disabled = true
 	add_child(new_hitbox)
 	new_hitbox.owner = get_tree().edited_scene_root

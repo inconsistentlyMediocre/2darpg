@@ -7,6 +7,7 @@ extends Area2D
 
 
 func toggle(on: bool) -> void:
+	visible = on
 	for child in get_children():
 		if child is CollisionShape2D:
 			child.disabled = !on

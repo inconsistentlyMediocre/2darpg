@@ -24,6 +24,7 @@ func _ready() -> void:
 
 func take_damage(attack: Attack) -> void:
 	if Utils.validate([attack]):
+		print(attack.damage_amount)
 		hp -= attack.damage_amount
 	if hp <= 0:
 		died.emit()

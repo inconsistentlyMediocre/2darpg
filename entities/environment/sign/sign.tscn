@@ -45,6 +45,7 @@ shape = SubResource("RectangleShape2D_5kvxm")
 
 [node name="HPManager" type="Node" parent="Components"]
 script = ExtResource("5_8x4td")
+max_hp = 1
 
 [node name="Interactable" parent="Components" instance=ExtResource("6_pakmx")]
 dialogue_timeline = ExtResource("7_n3m6j")

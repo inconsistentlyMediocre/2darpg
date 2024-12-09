@@ -27,4 +27,3 @@ func _ready() -> void:
 			weapon_sprite.vframes = 4
 	# Assign corresponding weapon sprite
 	weapon_sprite.texture = spritesheet
-	hitbox_component.attack = attack

@@ -14,9 +14,6 @@ extends Node2D
 
 #@export var frame_data_frames: Array[FrameDataObject]
 
-@export var animation_player: AnimationPlayer
-@export var animation_name: String
-
 
 var current_index: int = 0
 var frame_count: int = 0
@@ -29,23 +26,21 @@ func _enter_tree() -> void:
 			child.toggle(false)
 
 
-func _ready() -> void:
+func start() -> void:
 	current_frame = get_child(current_index)
 	if current_frame is AttackFrame:
 		current_frame.toggle(true)
-	animation_player.animation_finished.connect(reset_index)
 
 
-func reset_index(anim_name: String) -> void:
+func end() -> void:
 	current_index = 0
 	current_frame = get_child(current_index)
 
 
 func next_frame() -> void:
-	current_frame = get_child(current_index)
-	if current_frame is AttackFrame:
-		current_frame.toggle(false)
+	current_frame.toggle(false)
 	current_index += 1
+	current_index = clamp(current_index, 0, get_child_count())
 	current_frame = get_child(current_index)
 	if current_frame is AttackFrame:
 		current_frame.toggle(true)
