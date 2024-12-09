@@ -11,5 +11,5 @@ enum DamageType {
 
 @export var damage_amount: int = 1
 @export var damage_type: DamageType = DamageType.NORMAL
-
-# TODO: Define hitbox here
+@export var knockback_force: float = 0.0
+@export var hitstop_value: float = 0.0

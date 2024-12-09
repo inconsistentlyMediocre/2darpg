@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://q7nhbek3t3vm"]
+[gd_scene load_steps=50 format=3 uid="uid://q7nhbek3t3vm"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_qxaui"]
 [ext_resource type="Script" path="res://common/pixel_camera_2d.gd" id="3_86n62"]
@@ -20,7 +20,10 @@
 [ext_resource type="Script" path="res://components/weapon_component.gd" id="13_vqbsa"]
 [ext_resource type="Script" path="res://components/health_manager_component.gd" id="15_f2yjr"]
 [ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/hurtbox_component.tscn" id="16_lyntk"]
+[ext_resource type="Script" path="res://components/frame_data/attack_frame_data.gd" id="19_nhquf"]
 [ext_resource type="Texture2D" uid="uid://dax3ixth422in" path="res://entities/player/player_roll.png" id="20_cf8b8"]
+[ext_resource type="Script" path="res://components/frame_data/attack_frame.gd" id="20_ica4g"]
+[ext_resource type="Script" path="res://components/frame_data/frame_data_hitbox.gd" id="21_b2l07"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrqug"]
 size = Vector2(10, 9)
@@ -29,6 +32,8 @@ size = Vector2(10, 9)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
+knockback_force = 0.0
+hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4cjqg"]
 size = Vector2(30, 21)
@@ -38,6 +43,12 @@ size = Vector2(15, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_144j6"]
 size = Vector2(9, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krvv7"]
+size = Vector2(30, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2sji"]
+size = Vector2(30, 14)
 
 [sub_resource type="Animation" id="Animation_w56l3"]
 length = 0.001
@@ -192,7 +203,7 @@ tracks/3/keys = {
 }
 tracks/4/type = "value"
 tracks/4/imported = false
-tracks/4/enabled = true
+tracks/4/enabled = false
 tracks/4/path = NodePath("Components/Hitbox/CollisionShape2D:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
@@ -204,7 +215,7 @@ tracks/4/keys = {
 }
 tracks/5/type = "value"
 tracks/5/imported = false
-tracks/5/enabled = true
+tracks/5/enabled = false
 tracks/5/path = NodePath("Components/Hitbox/CollisionShape2D:shape:size")
 tracks/5/interp = 0
 tracks/5/loop_wrap = true
@@ -216,7 +227,7 @@ tracks/5/keys = {
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("Components/Hitbox/CollisionShape2D:position")
 tracks/6/interp = 0
 tracks/6/loop_wrap = true
@@ -225,6 +236,32 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(4, 0), Vector2(4, -1)]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Components/Attacks/SwingDown")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5juyj"]
@@ -982,6 +1019,7 @@ weapon_sprite = NodePath("../../Graphics/WeaponSprite")
 hitbox_component = NodePath("../Hitbox")
 
 [node name="Hitbox" parent="Components" node_paths=PackedStringArray("hitbox_owner") instance=ExtResource("10_fmcft")]
+visible = false
 hitbox_owner = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Hitbox"]
@@ -1001,6 +1039,61 @@ hp_manager = NodePath("../HPManager")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Hurtbox"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_144j6")
+
+[node name="Attacks" type="Node2D" parent="Components"]
+
+[node name="SwingDown" type="Node2D" parent="Components/Attacks" node_paths=PackedStringArray("animation_player")]
+script = ExtResource("19_nhquf")
+animation_player = NodePath("../../../AnimationPlayer")
+animation_name = "attack_down"
+
+[node name="Frame_1" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
+
+[node name="Frame_2" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
+
+[node name="Frame_3" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
+
+[node name="Hitbox_0" type="CollisionShape2D" parent="Components/Attacks/SwingDown/Frame_3"]
+position = Vector2(4, 0)
+shape = SubResource("RectangleShape2D_krvv7")
+disabled = true
+script = ExtResource("21_b2l07")
+
+[node name="Frame_4" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
+
+[node name="Hitbox_0" type="CollisionShape2D" parent="Components/Attacks/SwingDown/Frame_4"]
+position = Vector2(9, 0)
+shape = SubResource("RectangleShape2D_e2sji")
+disabled = true
+script = ExtResource("21_b2l07")
+
+[node name="Frame_5" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
+
+[node name="Frame_6" type="Area2D" parent="Components/Attacks/SwingDown" node_paths=PackedStringArray("hitbox_owner")]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("20_ica4g")
+hitbox_owner = NodePath("../../../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
