@@ -5,6 +5,7 @@ extends State
 @export var attack_state: State
 @export var talk_state: State
 @export var roll_state: State
+@export var hurt_state: State
 
 
 func process_input(event: InputEvent) -> State:
@@ -24,6 +25,10 @@ func process_physics(delta: float) -> State:
 		return roll_state
 	if get_interaction():
 		return talk_state
+	var attack: Attack = get_hit()
+	if attack:
+		hurt_state.attack = attack
+		return hurt_state
 	var movement: Vector2 = get_movement_input()
 	if movement == Vector2.ZERO:
 		return idle_state

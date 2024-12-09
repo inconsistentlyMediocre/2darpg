@@ -40,7 +40,7 @@ func end() -> void:
 func next_frame() -> void:
 	current_frame.toggle(false)
 	current_index += 1
-	current_index = clamp(current_index, 0, get_child_count())
+	current_index = clamp(current_index, 0, get_child_count()-1)
 	current_frame = get_child(current_index)
 	if current_frame is AttackFrame:
 		current_frame.toggle(true)

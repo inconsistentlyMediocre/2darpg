@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://q7nhbek3t3vm"]
+[gd_scene load_steps=63 format=3 uid="uid://q7nhbek3t3vm"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_qxaui"]
 [ext_resource type="Script" path="res://common/pixel_camera_2d.gd" id="3_86n62"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cri2rf51apw01" path="res://components/interaction_component.tscn" id="12_ffnqp"]
 [ext_resource type="Script" path="res://components/states/roll.gd" id="12_h62l3"]
 [ext_resource type="Script" path="res://components/weapon_component.gd" id="13_vqbsa"]
+[ext_resource type="Script" path="res://components/states/hurt.gd" id="14_it6gm"]
 [ext_resource type="Script" path="res://components/health_manager_component.gd" id="15_f2yjr"]
 [ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/hurtbox_component.tscn" id="16_lyntk"]
 [ext_resource type="Script" path="res://components/frame_data/attack_frame_data.gd" id="19_nhquf"]
@@ -31,7 +32,8 @@ size = Vector2(10, 9)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(0, 0)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4idd"]
@@ -47,7 +49,8 @@ size = Vector2(30, 22)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(0, 1)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6122"]
@@ -57,7 +60,8 @@ size = Vector2(30, 14)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(0, 1)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gk2m0"]
@@ -67,7 +71,8 @@ size = Vector2(30, 14)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(0, -1)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k4qf4"]
@@ -77,7 +82,8 @@ size = Vector2(30, 18)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(0, -1)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emdwg"]
@@ -87,7 +93,8 @@ size = Vector2(21, 21)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(-1, 0)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ajts"]
@@ -97,7 +104,8 @@ size = Vector2(21, 23)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(-1, 0)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2r8x"]
@@ -107,7 +115,8 @@ size = Vector2(21, 21)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(1, 0)
 hitstop_value = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3qjf"]
@@ -117,7 +126,8 @@ size = Vector2(21, 23)
 script = ExtResource("11_8r56x")
 damage_amount = 1
 damage_type = 0
-knockback_force = 0.0
+knockback_force = 1.0
+knockback_direction = Vector2(1, 0)
 hitstop_value = 0.0
 
 [sub_resource type="Animation" id="Animation_w56l3"]
@@ -939,6 +949,7 @@ vframes = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_mrqug")
+debug_color = Color(0.643865, 0.51997, 0.154423, 0.42)
 
 [node name="Components" type="Node2D" parent="."]
 
@@ -952,35 +963,39 @@ script = ExtResource("3_h3yip")
 use_analog_movement = true
 interaction_component = NodePath("../Interaction")
 
-[node name="StateMachine" parent="Components" node_paths=PackedStringArray("starting_state", "parent", "animation_player", "movement_manager") instance=ExtResource("3_wv283")]
+[node name="StateMachine" parent="Components" node_paths=PackedStringArray("starting_state", "parent", "animation_player", "movement_manager", "hp_manager") instance=ExtResource("3_wv283")]
 script = ExtResource("5_iy6rs")
 starting_state = NodePath("Idle")
 parent = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 movement_manager = NodePath("../PlayerMovementManager")
+hp_manager = NodePath("../HPManager")
 
-[node name="Idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state", "attack_state", "talk_state")]
+[node name="Idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state", "attack_state", "hurt_state", "talk_state")]
 script = ExtResource("7_takg5")
 move_state = NodePath("../Move")
 attack_state = NodePath("../Attack")
+hurt_state = NodePath("../Hurt")
 talk_state = NodePath("../Talk")
 animation_name = "idle"
 velocity_weight = 20.0
 
-[node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state")]
+[node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state", "hurt_state")]
 script = ExtResource("7_bawcg")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 talk_state = NodePath("../Talk")
 roll_state = NodePath("../Roll")
+hurt_state = NodePath("../Hurt")
 animation_name = "walk"
 speed = 85.0
 velocity_weight = 10.0
 
-[node name="Attack" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
+[node name="Attack" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "move_state", "hurt_state")]
 script = ExtResource("9_npns1")
 idle_state = NodePath("../Idle")
 move_state = NodePath("../Move")
+hurt_state = NodePath("../Hurt")
 animation_name = "attack"
 velocity_weight = 20.0
 
@@ -1003,14 +1018,23 @@ animation_name = "roll"
 speed = 200.0
 velocity_weight = 100.0
 
-[node name="Weapon" type="Node" parent="Components" node_paths=PackedStringArray("weapon_sprite", "hitbox_component")]
+[node name="Hurt" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "move_state", "attack_state", "hurtbox")]
+script = ExtResource("14_it6gm")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+attack_state = NodePath("../Attack")
+hurtbox = NodePath("../../Hurtbox")
+speed = 400.0
+velocity_weight = 20.0
+
+[node name="Weapon" type="Node" parent="Components" node_paths=PackedStringArray("weapon_sprite")]
 script = ExtResource("13_vqbsa")
 attack = SubResource("Resource_jhjt5")
 spritesheet = ExtResource("3_rwetc")
 weapon_sprite = NodePath("../../Graphics/WeaponSprite")
-hitbox_component = NodePath("")
 
 [node name="Interaction" parent="Components" instance=ExtResource("12_ffnqp")]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Interaction"]
 position = Vector2(-0.5, -7.5)
@@ -1022,6 +1046,7 @@ hp_manager = NodePath("../HPManager")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Hurtbox"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_144j6")
+debug_color = Color(0.701961, 0, 0, 0.419608)
 
 [node name="Attacks" type="Node2D" parent="Components"]
 

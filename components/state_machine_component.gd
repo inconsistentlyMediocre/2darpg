@@ -6,6 +6,7 @@ extends Node
 @export var parent: CharacterBody2D
 @export var animation_player: AnimationPlayer
 @export var movement_manager: MovementManager
+@export var hp_manager: HPManager
 
 var current_state: State
 var states: Array[State]
@@ -22,6 +23,7 @@ func init() -> void:
 		state.parent = parent
 		state.animation_player = animation_player
 		state.movement_manager = movement_manager
+		state.hp_manager = hp_manager
 	change_state(starting_state)
 
 

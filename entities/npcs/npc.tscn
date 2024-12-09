@@ -17,8 +17,10 @@ size = Vector2(10, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jlp7y"]
 size = Vector2(13, 13)
 
-[node name="NPC" type="CharacterBody2D"]
+[node name="NPC" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager")]
 script = ExtResource("1_df8jo")
+state_machine = NodePath("Components/StateMachine")
+movement_manager = NodePath("Components/EnemyMovementManager")
 
 [node name="Graphics" type="Node2D" parent="."]
 
@@ -29,7 +31,7 @@ offset = Vector2(0, -10)
 hframes = 6
 vframes = 4
 
-[node name="SwordSprite" type="Sprite2D" parent="Graphics"]
+[node name="WeaponSprite" type="Sprite2D" parent="Graphics"]
 visible = false
 texture = ExtResource("3_0s5p7")
 hframes = 5

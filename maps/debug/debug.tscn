@@ -383,5 +383,6 @@ position = Vector2(304, 176)
 [node name="Sign" parent="." instance=ExtResource("4_hpmnn")]
 position = Vector2(144, 184)
 
-[node name="DebugEnemy" parent="." instance=ExtResource("5_rh7wp")]
-position = Vector2(328, 104)
+[node name="DebugEnemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_rh7wp")]
+position = Vector2(157, 254)
+target = NodePath("../Player")

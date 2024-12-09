@@ -7,11 +7,15 @@ signal died
 @export var max_hp: int = -1
 @export var main: bool = false
 
+var attack_object: Attack = null
+
 var hp: int = max_hp:
 	set(value):
 		hp = value
 		if main:
 			UIDisplay.hp_container.hp = hp
+
+var is_hit: bool = false
 
 
 func _ready() -> void:
@@ -24,7 +28,15 @@ func _ready() -> void:
 
 func take_damage(attack: Attack) -> void:
 	if Utils.validate([attack]):
-		print(attack.damage_amount)
 		hp -= attack.damage_amount
+		attack_object = attack
 	if hp <= 0:
 		died.emit()
+
+
+func get_hit() -> Attack:
+	var result: Attack = attack_object
+	attack_object = null
+	if result:
+		return result
+	return null
