@@ -1,10 +1,11 @@
-[gd_scene load_steps=55 format=3 uid="uid://cam7gbao2lb53"]
+[gd_scene load_steps=56 format=3 uid="uid://cam7gbao2lb53"]
 
 [ext_resource type="Texture2D" uid="uid://cqbgqsc6nnol" path="res://entities/player/player.png" id="1_b8yph"]
 [ext_resource type="Script" path="res://entities/debug_enemy/debug_enemy.gd" id="1_oidli"]
 [ext_resource type="Texture2D" uid="uid://d1t87vq207rd1" path="res://entities/player/sword_attack.png" id="2_nsnrh"]
 [ext_resource type="Script" path="res://entities/debug_enemy/enemy_movement_manager.gd" id="3_bc6ag"]
 [ext_resource type="PackedScene" uid="uid://d1dxg0e2j0623" path="res://components/state_machine_component.tscn" id="4_fhufe"]
+[ext_resource type="Script" path="res://entities/debug_enemy/debug_draw.gd" id="4_x7k1p"]
 [ext_resource type="Script" path="res://components/state_machine_component.gd" id="5_e3wtq"]
 [ext_resource type="Script" path="res://components/states/idle.gd" id="6_pkmkf"]
 [ext_resource type="Script" path="res://components/states/move.gd" id="7_6cjsr"]
@@ -907,7 +908,7 @@ _data = {
 
 [node name="DebugEnemy" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox")]
 collision_layer = 2
-collision_mask = 14
+collision_mask = 15
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_oidli")
@@ -934,21 +935,27 @@ vframes = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_fgxqc")
-disabled = true
 
 [node name="Components" type="Node2D" parent="."]
+
+[node name="DebugDraw" type="Node2D" parent="Components"]
+script = ExtResource("4_x7k1p")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Components"]
 target_desired_distance = 24.0
 path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
 
 [node name="Timer" type="Timer" parent="Components"]
 autostart = true
 
-[node name="EnemyMovementManager" type="Node" parent="Components" node_paths=PackedStringArray("parent", "nav_agent")]
+[node name="EnemyMovementManager" type="Node" parent="Components" node_paths=PackedStringArray("parent", "debug_draw")]
 script = ExtResource("3_bc6ag")
 parent = NodePath("../..")
-nav_agent = NodePath("../NavigationAgent2D")
+look_ahead = 16.0
+rays_amount = 12
+debug_draw = NodePath("../DebugDraw")
 
 [node name="StateMachine" parent="Components" node_paths=PackedStringArray("starting_state", "parent", "animation_player", "movement_manager", "hp_manager") instance=ExtResource("4_fhufe")]
 script = ExtResource("5_e3wtq")
@@ -1000,7 +1007,7 @@ shape = SubResource("RectangleShape2D_yd5bp")
 
 [node name="HPManager" type="Node" parent="Components"]
 script = ExtResource("12_sk5xp")
-max_hp = 2
+max_hp = 10
 
 [node name="Attacks" type="Node2D" parent="Components"]
 

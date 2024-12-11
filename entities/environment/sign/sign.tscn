@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://pm03dgcbynkg"]
+[gd_scene load_steps=13 format=3 uid="uid://pm03dgcbynkg"]
 
 [ext_resource type="Script" path="res://entities/environment/sign/sign.gd" id="1_lkhk2"]
 [ext_resource type="Texture2D" uid="uid://djxccvdatq51i" path="res://entities/environment/sign/sign.png" id="1_oidds"]
@@ -16,7 +16,10 @@ size = Vector2(14, 11)
 size = Vector2(16, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7tw1"]
-size = Vector2(12, 6)
+size = Vector2(12, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0p7d5"]
+size = Vector2(45, 20)
 
 [node name="Sign" type="StaticBody2D" node_paths=PackedStringArray("hurtbox", "hp_manager", "interactable_component")]
 y_sort_enabled = true
@@ -55,5 +58,10 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_46fk2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_s7tw1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, -2)
+shape = SubResource("RectangleShape2D_0p7d5")
