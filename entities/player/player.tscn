@@ -1039,7 +1039,6 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Interaction"]
 position = Vector2(-0.5, -7.5)
 shape = SubResource("RectangleShape2D_c4idd")
-disabled = true
 
 [node name="Hurtbox" parent="Components" node_paths=PackedStringArray("hp_manager") instance=ExtResource("16_lyntk")]
 hp_manager = NodePath("../HPManager")
@@ -1047,7 +1046,6 @@ hp_manager = NodePath("../HPManager")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Components/Hurtbox"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_144j6")
-disabled = true
 debug_color = Color(0.701961, 0, 0, 0.419608)
 
 [node name="Attacks" type="Node2D" parent="Components"]

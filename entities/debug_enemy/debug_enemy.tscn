@@ -935,10 +935,12 @@ vframes = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4.5)
 shape = SubResource("RectangleShape2D_fgxqc")
+disabled = true
 
 [node name="Components" type="Node2D" parent="."]
 
 [node name="DebugDraw" type="Node2D" parent="Components"]
+visible = false
 script = ExtResource("4_x7k1p")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="Components"]
@@ -953,7 +955,6 @@ autostart = true
 [node name="EnemyMovementManager" type="Node" parent="Components" node_paths=PackedStringArray("parent", "debug_draw")]
 script = ExtResource("3_bc6ag")
 parent = NodePath("../..")
-look_ahead = 16.0
 rays_amount = 12
 debug_draw = NodePath("../DebugDraw")
 
@@ -971,7 +972,7 @@ move_state = NodePath("../Move")
 attack_state = NodePath("../Attack")
 hurt_state = NodePath("../Hurt")
 animation_name = "idle"
-velocity_weight = 10.0
+velocity_weight = 20.0
 
 [node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "hurt_state")]
 script = ExtResource("7_6cjsr")

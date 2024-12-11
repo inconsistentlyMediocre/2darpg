@@ -19,7 +19,7 @@ size = Vector2(16, 11)
 size = Vector2(12, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0p7d5"]
-size = Vector2(45, 20)
+size = Vector2(45, 75)
 
 [node name="Sign" type="StaticBody2D" node_paths=PackedStringArray("hurtbox", "hp_manager", "interactable_component")]
 y_sort_enabled = true
@@ -63,5 +63,7 @@ position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_s7tw1")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, -2)
+visible = false
+position = Vector2(2.5, 25.5)
 shape = SubResource("RectangleShape2D_0p7d5")
+disabled = true
