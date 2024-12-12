@@ -1,7 +1,6 @@
-[gd_scene load_steps=63 format=3 uid="uid://q7nhbek3t3vm"]
+[gd_scene load_steps=62 format=3 uid="uid://q7nhbek3t3vm"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_qxaui"]
-[ext_resource type="Script" path="res://common/pixel_camera_2d.gd" id="3_86n62"]
 [ext_resource type="Script" path="res://components/player_movement_manager.gd" id="3_h3yip"]
 [ext_resource type="Texture2D" uid="uid://d1t87vq207rd1" path="res://entities/player/sword_attack.png" id="3_rwetc"]
 [ext_resource type="PackedScene" uid="uid://d1dxg0e2j0623" path="res://components/state_machine_component.tscn" id="3_wv283"]
@@ -1292,7 +1291,3 @@ libraries = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="PixelCamera2D" type="Node2D" parent="."]
-script = ExtResource("3_86n62")
-active = false
