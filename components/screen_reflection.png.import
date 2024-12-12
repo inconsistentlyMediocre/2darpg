@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b51op3qieevtv"
-path="res://.godot/imported/tree.png-ddb79f3a2360866d4d58f438d66d5c2d.ctex"
+uid="uid://0y2uli2mya5u"
+path="res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/environment/tree/tree.png"
-dest_files=["res://.godot/imported/tree.png-ddb79f3a2360866d4d58f438d66d5c2d.ctex"]
+source_file="res://components/screen_reflection.png"
+dest_files=["res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1

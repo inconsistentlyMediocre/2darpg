@@ -1,0 +1,65 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://dctji22ycb0cr"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1v1eh"]
+output_port_for_preview = 0
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_krjxu"]
+parameter_name = "Reflecting_Surface"
+texture_source = 1
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_ev1pw"]
+constant = 1.0
+
+[sub_resource type="VisualShaderNodeColorFunc" id="VisualShaderNodeColorFunc_x7o64"]
+function = 3
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Reflecting_Surface : hint_screen_texture;
+
+
+
+void fragment() {
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Reflecting_Surface, UV);
+
+
+	vec3 n_out7p0;
+// ColorFunc:7
+	{
+		vec3 c = vec3(n_out2p0.xyz);
+		float r = (c.r * .393) + (c.g *.769) + (c.b * .189);
+		float g = (c.r * .349) + (c.g *.686) + (c.b * .168);
+		float b = (c.r * .272) + (c.g *.534) + (c.b * .131);
+		n_out7p0 = vec3(r, g, b);
+	}
+
+
+// FloatConstant:6
+	float n_out6p0 = 1.000000;
+
+
+// Output:0
+	COLOR.rgb = n_out7p0;
+	COLOR.a = n_out6p0;
+
+
+}
+"
+graph_offset = Vector2(74.6223, -95.9556)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(680, 80)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_1v1eh")
+nodes/fragment/2/position = Vector2(-100, -20)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture2DParameter_krjxu")
+nodes/fragment/3/position = Vector2(-500, 0)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatConstant_ev1pw")
+nodes/fragment/6/position = Vector2(240, 220)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorFunc_x7o64")
+nodes/fragment/7/position = Vector2(340, 20)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 2, 6, 0, 0, 1, 2, 0, 7, 0, 7, 0, 0, 0)

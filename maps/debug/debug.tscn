@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=4 uid="uid://bqjeke5plyhhk"]
+[gd_scene load_steps=19 format=4 uid="uid://bqjeke5plyhhk"]
 
 [ext_resource type="PackedScene" uid="uid://q7nhbek3t3vm" path="res://entities/player/player.tscn" id="1_0buae"]
+[ext_resource type="Shader" uid="uid://dctji22ycb0cr" path="res://components/reflection_shader.tres" id="2_5c8ax"]
+[ext_resource type="Script" path="res://components/reflection_component.gd" id="2_r6be1"]
 [ext_resource type="Texture2D" uid="uid://wdv1sk2a5p3u" path="res://maps/overworld/little_forest_tileset.png" id="2_wpnny"]
+[ext_resource type="Texture2D" uid="uid://0y2uli2mya5u" path="res://components/screen_reflection.png" id="4_dvusf"]
 [ext_resource type="Texture2D" uid="uid://b51op3qieevtv" path="res://entities/environment/tree/tree.png" id="4_vfuek"]
 [ext_resource type="PackedScene" uid="uid://cam7gbao2lb53" path="res://entities/debug_enemy/debug_enemy.tscn" id="5_rh7wp"]
 
@@ -367,6 +370,9 @@ terrain_set_0/terrain_1/color = Color(1, 0, 0, 1)
 navigation_layer_0/layers = 1
 sources/3 = SubResource("TileSetAtlasSource_r807r")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5f6fe"]
+shader = ExtResource("2_5c8ax")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihq5x"]
 size = Vector2(60, 28)
 
@@ -385,6 +391,19 @@ tile_map_data = PackedByteArray("AAAkABgAAwAIAAEAAAAkABcAAwAIAAEAAAAkABYAAwAIAAE
 tile_set = SubResource("TileSet_6fc8c")
 collision_enabled = false
 navigation_enabled = false
+
+[node name="ReflectionComponent" type="Node2D" parent="TileMap/Water" node_paths=PackedStringArray("reflecting_surface")]
+script = ExtResource("2_r6be1")
+reflecting_surface = NodePath("..")
+
+[node name="Reflection" type="Sprite2D" parent="TileMap/Water/ReflectionComponent"]
+material = SubResource("ShaderMaterial_5f6fe")
+position = Vector2(505, 413)
+texture = ExtResource("4_dvusf")
+
+[node name="Reflections" type="Node2D" parent="TileMap/Water/ReflectionComponent"]
+
+[node name="Mask" type="PointLight2D" parent="TileMap/Water/ReflectionComponent"]
 
 [node name="Player" parent="." instance=ExtResource("1_0buae")]
 position = Vector2(320, 248)
