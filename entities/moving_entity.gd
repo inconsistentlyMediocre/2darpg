@@ -7,6 +7,7 @@ extends CharacterBody2D
 @export var hp_manager: HPManager
 @export var hurtbox: Hurtbox
 @export var animation_player: AnimationPlayer
+@export var graphics: Node2D
 
 
 func _ready() -> void:

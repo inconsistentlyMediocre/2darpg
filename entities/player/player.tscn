@@ -921,7 +921,7 @@ _data = {
 "walk_up": SubResource("Animation_unn62")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox", "animation_player")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox", "animation_player", "graphics")]
 collision_mask = 15
 motion_mode = 1
 script = ExtResource("1_qxaui")
@@ -930,6 +930,7 @@ movement_manager = NodePath("Components/PlayerMovementManager")
 hp_manager = NodePath("Components/HPManager")
 hurtbox = NodePath("Components/Hurtbox")
 animation_player = NodePath("AnimationPlayer")
+graphics = NodePath("Graphics")
 
 [node name="Graphics" type="Node2D" parent="."]
 

@@ -906,7 +906,7 @@ _data = {
 "walk_up": SubResource("Animation_unn62")
 }
 
-[node name="DebugEnemy" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox")]
+[node name="DebugEnemy" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox", "animation_player", "graphics")]
 collision_layer = 2
 collision_mask = 15
 motion_mode = 1
@@ -916,6 +916,8 @@ state_machine = NodePath("Components/StateMachine")
 movement_manager = NodePath("Components/EnemyMovementManager")
 hp_manager = NodePath("Components/HPManager")
 hurtbox = NodePath("Components/Hurtbox")
+animation_player = NodePath("AnimationPlayer")
+graphics = NodePath("Graphics")
 
 [node name="Graphics" type="Node2D" parent="."]
 
