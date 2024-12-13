@@ -3,15 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://dk64waa455a0" path="res://entities/environment/mirror/mirror.png" id="1_yhp78"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3btx5"]
-size = Vector2(32, 10)
+size = Vector2(32, 12)
 
 [node name="Mirror" type="StaticBody2D"]
-position = Vector2(320, 264)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
 texture = ExtResource("1_yhp78")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_3btx5")

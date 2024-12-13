@@ -139,7 +139,7 @@ target = NodePath("../Player")
 y_sort_enabled = true
 
 [node name="Mirror" parent="Mirror" instance=ExtResource("5_0qeoo")]
-position = Vector2(321, 204)
+position = Vector2(320, 210)
 
 [node name="ReflectionComponent" parent="Mirror" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("6_y1onl")]
 reflecting_surface = NodePath("../Mirror/Sprite2D")

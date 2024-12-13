@@ -48,7 +48,10 @@ func _ready() -> void:
 						sprite.flip_v = true
 					if reflection_type == ReflectionTypes.MIRROR:
 						sprite.offset.y += 48
+						#sprite.z_index = 1
+						sprite.z_index *= -1
 						mask.z_index = 1
+						
 					
 					
 		reflections.add_child(graphics)

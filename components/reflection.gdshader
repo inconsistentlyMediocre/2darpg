@@ -13,16 +13,16 @@ void fragment() {
 		COLOR.g <= reflectable_color.g + EPSILON &&
 		COLOR.g >= reflectable_color.g - EPSILON &&
 		COLOR.b <= reflectable_color.b + EPSILON &&
-		COLOR.b >= reflectable_color.b - EPSILON 
+		COLOR.b >= reflectable_color.b - EPSILON
 		) {
-		
+
 	} else {
 		COLOR.a = 0.0;
 	}
 	//vec4 current_color = texture(TEXTURE, UV);
 	//uvec4 uint_current_color = uvec4(round(current_color * 255.0));
 	//uvec4 uint_reflectable_color = uvec4(round(reflectable_color * 255.0));
-	
+
 	//if (uint_current_color != uint_reflectable_color) {
 		//COLOR.a = 0.0;
 	//}

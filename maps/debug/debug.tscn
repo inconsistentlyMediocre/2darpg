@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=4 uid="uid://bqjeke5plyhhk"]
+[gd_scene load_steps=17 format=4 uid="uid://bqjeke5plyhhk"]
 
 [ext_resource type="PackedScene" uid="uid://q7nhbek3t3vm" path="res://entities/player/player.tscn" id="1_0buae"]
 [ext_resource type="PackedScene" uid="uid://blyhfdo260b1s" path="res://components/reflection_component.tscn" id="2_lym22"]
 [ext_resource type="Texture2D" uid="uid://wdv1sk2a5p3u" path="res://maps/overworld/little_forest_tileset.png" id="2_wpnny"]
 [ext_resource type="Texture2D" uid="uid://b51op3qieevtv" path="res://entities/environment/tree/tree.png" id="4_vfuek"]
 [ext_resource type="PackedScene" uid="uid://cam7gbao2lb53" path="res://entities/debug_enemy/debug_enemy.tscn" id="5_rh7wp"]
+[ext_resource type="PackedScene" uid="uid://d3x2sddedle0s" path="res://entities/environment/mirror/mirror.tscn" id="6_6w2uy"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3konh"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -409,3 +410,18 @@ texture = ExtResource("4_vfuek")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree"]
 position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_ihq5x")
+
+[node name="Mirror" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Mirror" parent="Mirror" instance=ExtResource("6_6w2uy")]
+position = Vector2(320, 240)
+
+[node name="ReflectionComponent" parent="Mirror" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("2_lym22")]
+reflecting_surface = NodePath("../Mirror/Sprite2D")
+reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy")]
+reflection_modulate = Color(1, 1, 1, 0.74902)
+reflection_mask_color = Color(0.901961, 0.933333, 1, 1)
+reflection_type = 1
+
+[editable path="Mirror/Mirror"]
