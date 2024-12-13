@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0y2uli2mya5u"
-path="res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"
+uid="uid://dk64waa455a0"
+path="res://.godot/imported/mirror.png-be2c26b5ff67222bb28ea03746aa1294.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/screen_reflection.png"
-dest_files=["res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"]
+source_file="res://entities/environment/mirror/mirror.png"
+dest_files=["res://.godot/imported/mirror.png-be2c26b5ff67222bb28ea03746aa1294.ctex"]
 
 [params]
 
