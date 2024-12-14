@@ -34,6 +34,7 @@ func enter() -> void:
 
 func exit() -> void:
 	super()
+	parent.visible = true
 	hitstun_over = false
 	hurtbox.disabled = false
 	movement = Vector2.ZERO
