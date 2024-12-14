@@ -14,7 +14,7 @@ enum ReflectionTypes {
 
 var reflected_graphics: Array[Node2D]
 var reflection_material: ShaderMaterial = preload("res://components/reflection.material")
-
+var opacity_factor: float = 0.05
 
 @onready var reflections: Node2D = $Mask/Reflections
 @onready var mask: Sprite2D = $Mask
@@ -51,11 +51,9 @@ func _ready() -> void:
 						#sprite.z_index = 1
 						sprite.z_index *= -1
 						mask.z_index = 1
-						
-					
-					
 		reflections.add_child(graphics)
 	reflections.modulate = reflection_modulate
+	reflections.y_sort_enabled = true
 	#reflections.z_index = reflecting_surface.z_index + 1
 
 
@@ -70,7 +68,7 @@ func _process(delta: float) -> void:
 					reflected_graphics[i].global_position.x = reflected_entities[i].global_position.x
 					reflected_graphics[i].global_position.y = reflecting_surface.global_position.y - distance
 					reflected_graphics[i].visible = reflected_graphics[i].global_position.y < reflected_entities[i].global_position.y - 48
-					
+					#reflected_graphics[i].modulate.a = 1.0 - (distance / 4) * opacity_factor
 				for j in reflected_graphics[i].get_children().size():
 					if reflected_graphics[i].get_child(j) is Sprite2D:
 						reflected_graphics[i].get_child(j).texture = reflected_entities[i].graphics.get_child(j).texture
@@ -80,9 +78,37 @@ func _process(delta: float) -> void:
 							if reflected_entities[i].graphics.get_child(j).frame_coords.y == 0:
 								reflected_graphics[i].get_child(j).frame_coords.y = 3
 								reflected_graphics[i].get_child(j).flip_h = true
+								if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
+									match reflected_graphics[i].get_child(j).frame_coords.x:
+										1:
+											reflected_graphics[i].get_child(j).frame_coords.x = 0
+										2:
+											reflected_graphics[i].get_child(j).frame_coords.x = 5
+										3:
+											reflected_graphics[i].get_child(j).frame_coords.x = 4
+										4:
+											reflected_graphics[i].get_child(j).frame_coords.x = 3
+										5:
+											reflected_graphics[i].get_child(j).frame_coords.x = 2
+										0:
+											reflected_graphics[i].get_child(j).frame_coords.x = 1
 							elif reflected_entities[i].graphics.get_child(j).frame_coords.y == 3:
 								reflected_graphics[i].get_child(j).frame_coords.y = 0
 								reflected_graphics[i].get_child(j).flip_h = true
+								if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
+									match reflected_graphics[i].get_child(j).frame_coords.x:
+										1:
+											reflected_graphics[i].get_child(j).frame_coords.x = 0
+										2:
+											reflected_graphics[i].get_child(j).frame_coords.x = 5
+										3:
+											reflected_graphics[i].get_child(j).frame_coords.x = 4
+										4:
+											reflected_graphics[i].get_child(j).frame_coords.x = 3
+										5:
+											reflected_graphics[i].get_child(j).frame_coords.x = 2
+										0:
+											reflected_graphics[i].get_child(j).frame_coords.x = 1
 							else:
 								reflected_graphics[i].get_child(j).flip_h = false
 			else:
