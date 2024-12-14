@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cam7gbao2lb53"]
+[gd_scene load_steps=62 format=3 uid="uid://cam7gbao2lb53"]
 
 [ext_resource type="Texture2D" uid="uid://cqbgqsc6nnol" path="res://entities/player/player.png" id="1_b8yph"]
 [ext_resource type="Script" path="res://entities/debug_enemy/debug_enemy.gd" id="1_oidli"]
@@ -19,6 +19,12 @@
 [ext_resource type="Script" path="res://components/frame_data/attack_frame.gd" id="13_xxn23"]
 [ext_resource type="Script" path="res://components/frame_data/frame_data_hitbox.gd" id="14_mfkcy"]
 [ext_resource type="Texture2D" uid="uid://dax3ixth422in" path="res://entities/player/player_roll.png" id="17_ven7s"]
+[ext_resource type="Script" path="res://components/goap/agent.gd" id="18_ddint"]
+[ext_resource type="Script" path="res://components/goap/goap.gd" id="19_a3tps"]
+[ext_resource type="Script" path="res://components/goap/action_planner.gd" id="19_qv23e"]
+[ext_resource type="Script" path="res://entities/debug_enemy/goap/actions/find_player.gd" id="21_xffm8"]
+[ext_resource type="Script" path="res://entities/debug_enemy/goap/actions/follow_player.gd" id="22_860fj"]
+[ext_resource type="Script" path="res://entities/debug_enemy/goap/goals/kill_player.gd" id="22_b4q8c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgxqc"]
 size = Vector2(10, 9)
@@ -1249,6 +1255,36 @@ collision_layer = 16
 collision_mask = 0
 script = ExtResource("13_xxn23")
 hitbox_owner = NodePath("../../../..")
+
+[node name="GOAP" type="Node" parent="Components"]
+script = ExtResource("19_a3tps")
+
+[node name="GoapActionPlanner" type="Node" parent="Components/GOAP" node_paths=PackedStringArray("actions")]
+script = ExtResource("19_qv23e")
+actions = [NodePath("../Actions/ActionFindPlayer"), NodePath("../Actions/ActionFollowPlayer")]
+
+[node name="GoapAgent" type="Node" parent="Components/GOAP" node_paths=PackedStringArray("action_planner", "actor", "goals")]
+script = ExtResource("18_ddint")
+action_planner = NodePath("../GoapActionPlanner")
+actor = NodePath("../../..")
+goals = [NodePath("../Goals/GoalKillPlayer")]
+
+[node name="Actions" type="Node" parent="Components/GOAP"]
+
+[node name="ActionFindPlayer" type="Node" parent="Components/GOAP/Actions" node_paths=PackedStringArray("parent", "movement_manager")]
+script = ExtResource("21_xffm8")
+parent = NodePath("../../../..")
+movement_manager = NodePath("../../../EnemyMovementManager")
+
+[node name="ActionFollowPlayer" type="Node" parent="Components/GOAP/Actions" node_paths=PackedStringArray("parent", "movement_manager")]
+script = ExtResource("22_860fj")
+parent = NodePath("../../../..")
+movement_manager = NodePath("../../../EnemyMovementManager")
+
+[node name="Goals" type="Node" parent="Components/GOAP"]
+
+[node name="GoalKillPlayer" type="Node" parent="Components/GOAP/Goals"]
+script = ExtResource("22_b4q8c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

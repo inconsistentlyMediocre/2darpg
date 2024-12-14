@@ -21,6 +21,7 @@ GlobalManager="*res://common/global_manager.gd"
 Utils="*res://common/utils.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 UIDisplay="*res://ui/ui_display.tscn"
+WorldState="*res://components/goap/world_state.gd"
 
 [debug]
 

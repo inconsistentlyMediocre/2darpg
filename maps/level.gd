@@ -7,6 +7,10 @@ extends Node2D
 var state: Dictionary = {}
 
 
+func _ready() -> void:
+	WorldState.current_world = self
+
+
 func get_state(state_name: String, default = null) -> Variant:
 	return state.get(state_name, default)
 
@@ -20,6 +24,8 @@ func clear_state() -> void:
 
 
 func get_elements(group_name: String) -> Array:
+	if not is_inside_tree():
+		return []
 	return get_tree().get_nodes_in_group(group_name)
 
 

@@ -97,9 +97,9 @@ func get_movement_direction() -> Vector2:
 			has_line_of_sight = result["collider"] == target
 			if has_line_of_sight:
 				last_known_position = target.global_position
-				target_position = target.global_position
+				#target_position = target.global_position
 			else:
-				target_position = last_known_position
+				pass#target_position = last_known_position
 		else:
 			has_line_of_sight = false
 		
