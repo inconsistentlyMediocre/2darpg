@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://djxccvdatq51i" path="res://entities/environment/sign/sign.png" id="1_oidds"]
 [ext_resource type="Texture2D" uid="uid://pgek61kny8fh" path="res://entities/environment/sign/sign_cut.png" id="2_7l1sr"]
 [ext_resource type="Resource" path="res://entities/environment/sign/dialogue/sign_broken.dtl" id="2_bghh4"]
-[ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/hurtbox_component.tscn" id="2_ijkty"]
-[ext_resource type="Script" path="res://components/health_manager_component.gd" id="5_8x4td"]
-[ext_resource type="PackedScene" uid="uid://d1skyapqmnkx6" path="res://components/interactable_component.tscn" id="6_pakmx"]
+[ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/damage_components/hurtbox_component.tscn" id="2_ijkty"]
+[ext_resource type="Script" path="res://components/damage_components/health_manager_component.gd" id="5_8x4td"]
+[ext_resource type="PackedScene" uid="uid://d1skyapqmnkx6" path="res://components/interaction_components/interactable_component.tscn" id="6_pakmx"]
 [ext_resource type="Resource" path="res://entities/environment/sign/dialogue/sign_1.dtl" id="7_n3m6j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5kvxm"]

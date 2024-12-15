@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0y2uli2mya5u"
-path="res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"
+path="res://.godot/imported/screen_reflection.png-beddaf84f495d492e38143eb421df1c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/screen_reflection.png"
-dest_files=["res://.godot/imported/screen_reflection.png-fd1329648168cd8cd6ff7b653559cd93.ctex"]
+source_file="res://components/reflection/screen_reflection.png"
+dest_files=["res://.godot/imported/screen_reflection.png-beddaf84f495d492e38143eb421df1c7.ctex"]
 
 [params]
 

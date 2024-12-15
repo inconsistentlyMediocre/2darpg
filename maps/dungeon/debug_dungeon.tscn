@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cam7gbao2lb53" path="res://entities/debug_enemy/debug_enemy.tscn" id="3_slgs7"]
 [ext_resource type="PackedScene" uid="uid://bh3ka4lbq2bdo" path="res://ui/debug/debug_ui.tscn" id="4_uaawa"]
 [ext_resource type="PackedScene" uid="uid://d3x2sddedle0s" path="res://entities/environment/mirror/mirror.tscn" id="5_0qeoo"]
-[ext_resource type="PackedScene" uid="uid://blyhfdo260b1s" path="res://components/reflection_component.tscn" id="6_y1onl"]
+[ext_resource type="PackedScene" uid="uid://blyhfdo260b1s" path="res://components/reflection/reflection_component.tscn" id="6_y1onl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ojyhv"]
 vertices = PackedVector2Array(16, 16, -16, 16, -16, -16, 16, -16)

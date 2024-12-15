@@ -13,7 +13,7 @@ enum ReflectionTypes {
 @export var reflection_type: ReflectionTypes
 
 var reflected_graphics: Array[Node2D]
-var reflection_material: ShaderMaterial = preload("res://components/reflection.material")
+var reflection_material: ShaderMaterial = preload("res://components/reflection/reflection.material")
 var opacity_factor: float = 0.05
 
 @onready var reflections: Node2D = $Mask/Reflections
