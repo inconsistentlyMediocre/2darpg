@@ -1,4 +1,4 @@
-class_name ActionFindPlayer
+class_name ActionLookForPlayer
 extends GoapAction
 
 
@@ -27,6 +27,7 @@ func get_effects() -> Dictionary:
 
 
 func perform(actor: Node2D, delta: float) -> bool:
+	print("searching")
 	# Move to random point
 	if not point_selected:
 		movement_manager.target_position = Vector2(randf_range(0.0, 320.0), randf_range(0.0, 320.0))
@@ -35,9 +36,11 @@ func perform(actor: Node2D, delta: float) -> bool:
 	if movement_manager.has_line_of_sight:
 		WorldState.current_world.set_state("is_player_seen", true)
 		print("spotted")
+		point_selected = false
 		return true
 	else:
 		if movement_manager.target_reached:
-			#movement_manager.target_position = Vector2(randf_range(0.0, 320.0), randf_range(0.0, 320.0))
+			print("selecttaw")
+			movement_manager.target_position = Vector2(randf_range(0.0, 320.0), randf_range(0.0, 320.0))
 			point_selected = false
 	return false

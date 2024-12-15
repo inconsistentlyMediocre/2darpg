@@ -75,7 +75,7 @@ func set_danger() -> void:
 func get_collisions(direction: Vector2, exclude_target: bool = true) -> Dictionary:
 	var space_state: PhysicsDirectSpaceState2D = get_viewport().world_2d.direct_space_state
 	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(parent.global_position,
-	parent.global_position + direction * look_ahead)
+	parent.global_position + direction * look_ahead * 10)
 	query.collide_with_areas = true
 	if exclude_target:
 		query.exclude = [parent.get_rid(), target.get_rid()]
@@ -138,7 +138,7 @@ func get_movement_direction() -> Vector2:
 
 
 func get_attack() -> bool:
-	#return false
+	return false
 	if Utils.validate([target, parent]):
 		return parent.global_position.distance_to(target.global_position) < look_ahead / 2.0
 	return false

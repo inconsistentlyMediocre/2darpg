@@ -41,9 +41,8 @@ func get_best_goal() -> GoapGoal:
 	
 	for goal in goals:
 		if goal.is_valid() and (highest_priority == null or goal.priority() > highest_priority.priority()):
+			#print(goal)
 			highest_priority = goal
-		else:
-			highest_priority = null
 	
 	return highest_priority
 

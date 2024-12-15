@@ -3,11 +3,11 @@ extends GoapGoal
 
 
 func is_valid() -> bool:
-	return WorldState.current_world.get_elements("Player").size() > 0
+	return WorldState.current_world.get_state("is_player_seen", true)
 
 
 func priority() -> int:
-	return 10
+	return 20
 
 
 func get_desired_state() -> Dictionary:

@@ -98,7 +98,7 @@ func build_plans(step: Dictionary, blackboard: Dictionary) -> bool:
 func transform_tree_into_array(plan: Dictionary, blackboard: Dictionary) -> Array[Dictionary]:
 	var plans: Array[Dictionary] = []
 	
-	if plan.children.size() == 0:
+	if plan.children.size() == 0 and plan.action is GoapAction:
 		plans.push_back({ "actions": [plan.action], "cost": plan.action.get_cost(blackboard) })
 		return plans
 
