@@ -10,11 +10,24 @@ const LEFT_STRING: String = "left"
 const RIGHT_STRING: String = "right"
 
 var direction_string: String = DOWN_STRING
+var facing_direction: Vector2 = Vector2.ZERO
 
 var current_string: String = direction_string:
 	set(value):
 		current_string = value
 		direction_updated.emit()
+
+
+func _ready() -> void:
+	match direction_string:
+		DOWN_STRING:
+			facing_direction = Vector2.DOWN
+		UP_STRING:
+			facing_direction = Vector2.UP
+		LEFT_STRING:
+			facing_direction = Vector2.LEFT
+		RIGHT_STRING:
+			facing_direction = Vector2.RIGHT
 
 
 func get_movement_direction() -> Vector2:
@@ -30,6 +43,10 @@ func get_interaction() -> bool:
 
 
 func get_roll() -> bool:
+	return false
+
+
+func get_use_item() -> bool:
 	return false
 
 

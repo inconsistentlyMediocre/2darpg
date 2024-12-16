@@ -14,3 +14,4 @@ enum DamageType {
 @export var knockback_force: float = 1.0
 @export var knockback_direction: Vector2 = Vector2.ZERO
 @export var hitstop_value: float = 0.0
+var position: Vector2

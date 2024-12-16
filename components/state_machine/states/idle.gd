@@ -26,6 +26,10 @@ func process_physics(delta: float) -> State:
 		return talk_state
 	if get_attack():
 		return attack_state
+	if get_use_item():
+		var spawnable: Node2D = parent.current_item_spawnable.instantiate()
+		spawnable.global_position = parent.global_position
+		WorldState.current_level.add_child(spawnable)
 	var attack: Attack = get_hit()
 	if attack:
 		hurt_state.attack = attack

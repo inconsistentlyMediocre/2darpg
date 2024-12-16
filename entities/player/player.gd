@@ -7,6 +7,8 @@ extends MovingEntity
 #@onready var hp_manager: HPManager = $Components/HPManager
 #@onready var hurtbox: Hurtbox = $Components/Hurtbox
 
+var current_item_spawnable: PackedScene = preload("res://entities/items/active/bomb.tscn")
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Utils.validate([state_machine]):

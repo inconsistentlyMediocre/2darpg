@@ -3,7 +3,7 @@ extends Area2D
 
 
 @export var attack: Attack
-@export var hitbox_owner: CharacterBody2D
+@export var hitbox_owner: Node2D
 
 
 func toggle(on: bool) -> void:

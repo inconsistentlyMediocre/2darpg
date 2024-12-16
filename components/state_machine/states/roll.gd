@@ -32,6 +32,10 @@ func exit() -> void:
 func process_physics(delta: float) -> State:
 	if get_attack():
 		attack_queued = true
+	if get_use_item():
+		var spawnable: Node2D = parent.current_item_spawnable.instantiate()
+		spawnable.global_position = parent.global_position
+		WorldState.current_level.add_child(spawnable)
 	#parent.velocity = lerp(parent.velocity, movement * speed, delta * velocity_weight)
 	if movement != Vector2.ZERO:
 		parent.velocity = movement * speed

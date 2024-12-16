@@ -15,5 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HPContainer" parent="Control" instance=ExtResource("1_q7ct3")]
-visible = false
 layout_mode = 0
+max_hp = 6
+hp = 6

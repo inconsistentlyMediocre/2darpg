@@ -55,6 +55,10 @@ func get_hit() -> Attack:
 	return hp_manager.get_hit()
 
 
+func get_use_item() -> bool:
+	return movement_manager.get_use_item()
+
+
 func play_animation() -> void:
 	if not animation_name == "":
 		animation_player.play(animation_name + "_" + movement_manager.direction_string)

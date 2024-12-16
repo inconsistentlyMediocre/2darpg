@@ -33,5 +33,6 @@ func _on_hurtbox_area_shape_entered(area_rid: RID, area: Area2D, area_shape_inde
 		if area.hitbox_owner != parent:
 			var hitbox: FrameDataHitbox = area.shape_owner_get_owner(area.shape_find_owner(area_shape_index))
 			var attack: Attack = hitbox.attack
+			attack.position = area.hitbox_owner.global_position
 			if Utils.validate([hp_manager, attack]):
 				hp_manager.take_damage(attack)

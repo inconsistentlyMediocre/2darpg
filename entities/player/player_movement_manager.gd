@@ -11,6 +11,8 @@ func get_movement_direction() -> Vector2:
 	if not use_analog_movement:
 		direction = direction.normalized()
 	set_direction_string(direction)
+	if direction != Vector2.ZERO:
+		facing_direction = direction.normalized()
 	
 	return direction
 
@@ -28,3 +30,7 @@ func get_interaction() -> bool:
 
 func get_roll() -> bool:
 	return Input.is_action_just_pressed("roll")
+
+
+func get_use_item() -> bool:
+	return Input.is_action_just_pressed("use_item")

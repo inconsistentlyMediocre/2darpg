@@ -133,6 +133,8 @@ func get_movement_direction() -> Vector2:
 				pass#direction = Vector2.ZERO
 		direction = direction.normalized()
 		set_direction_string(direction)
+		if direction != Vector2.ZERO:
+			facing_direction = direction.normalized()
 		return direction
 	return Vector2.ZERO
 

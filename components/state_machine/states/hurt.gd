@@ -26,7 +26,13 @@ func enter() -> void:
 	hurtbox.disabled = true
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start(hitstun_duration / flash_interval)
-	movement = attack.knockback_direction * attack.knockback_force
+	if attack.knockback_direction != Vector2.ZERO:
+		movement = attack.knockback_direction * attack.knockback_force
+	else:
+		if attack.position.y < parent.global_position.y or attack.position.x < parent.global_position.x:
+			movement = movement_manager.facing_direction.abs() * attack.knockback_force
+		else:
+			movement = movement_manager.facing_direction.abs() * -attack.knockback_force
 	#parent.velocity = lerp(parent.velocity, movement * speed, delta * velocity_weight)
 	parent.velocity = movement * speed
 	get_tree().create_timer(hitstun_duration).timeout.connect(_on_hitstun_over)

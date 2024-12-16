@@ -1,0 +1,232 @@
+[gd_scene load_steps=12 format=3 uid="uid://bodl7v0ri5lsh"]
+
+[ext_resource type="Script" path="res://entities/effects/explosion/explosion.gd" id="1_f4xqr"]
+[ext_resource type="Texture2D" uid="uid://baaeiyms5wxy7" path="res://entities/effects/explosion/explosion.png" id="1_o25xe"]
+[ext_resource type="Script" path="res://components/frame_data/attack_frame_data.gd" id="2_juqop"]
+[ext_resource type="Script" path="res://components/frame_data/attack_frame.gd" id="3_y2g6m"]
+[ext_resource type="Script" path="res://components/frame_data/frame_data_hitbox.gd" id="4_3a7fp"]
+[ext_resource type="Script" path="res://components/damage_data/attack_data.gd" id="5_3hk8r"]
+
+[sub_resource type="Animation" id="Animation_ib5bo"]
+resource_name = "explode"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackFrameData")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"start"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"next_frame"
+}, {
+"args": [],
+"method": &"end"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_kbjhq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tord7"]
+_data = {
+"RESET": SubResource("Animation_kbjhq"),
+"explode": SubResource("Animation_ib5bo")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cggrs"]
+radius = 14.3178
+
+[sub_resource type="Resource" id="Resource_qerok"]
+script = ExtResource("5_3hk8r")
+damage_amount = 6
+damage_type = 0
+knockback_force = 2.0
+knockback_direction = Vector2(0, 0)
+hitstop_value = 0.0
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_f4xqr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_o25xe")
+offset = Vector2(0, -5)
+hframes = 6
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tord7")
+}
+autoplay = "explode"
+
+[node name="AttackFrameData" type="Node2D" parent="."]
+script = ExtResource("2_juqop")
+
+[node name="Frame_0" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_1" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Hitbox_0" type="CollisionShape2D" parent="AttackFrameData/Frame_1"]
+shape = SubResource("CircleShape2D_cggrs")
+disabled = true
+script = ExtResource("4_3a7fp")
+attack = SubResource("Resource_qerok")
+
+[node name="Frame_2" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_3" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_4" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_5" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_6" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_7" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_8" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_9" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[node name="Frame_10" type="Area2D" parent="AttackFrameData" node_paths=PackedStringArray("hitbox_owner")]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_y2g6m")
+hitbox_owner = NodePath("../..")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
