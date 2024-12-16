@@ -392,7 +392,7 @@ navigation_enabled = false
 
 [node name="ReflectionComponent" parent="TileMap" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("2_lym22")]
 reflecting_surface = NodePath("../Water")
-reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy")]
+reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy"), NodePath("../../Mirror/Mirror")]
 reflection_mask_color = Color(0, 0.517647, 0.847059, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_0buae")]
@@ -417,10 +417,10 @@ shape = SubResource("RectangleShape2D_ihq5x")
 y_sort_enabled = true
 
 [node name="Mirror" parent="Mirror" instance=ExtResource("6_6w2uy")]
-position = Vector2(634, 245)
+position = Vector2(320, 256)
 
 [node name="ReflectionComponent" parent="Mirror" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("2_lym22")]
-reflecting_surface = NodePath("../Mirror/Sprite2D")
+reflecting_surface = NodePath("../Mirror/Graphics/MirrorSprite")
 reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy")]
 reflection_modulate = Color(1, 1, 1, 0.933333)
 reflection_mask_color = Color(0.901961, 0.933333, 1, 1)

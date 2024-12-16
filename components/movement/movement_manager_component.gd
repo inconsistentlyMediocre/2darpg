@@ -19,6 +19,10 @@ var current_string: String = direction_string:
 
 
 func _ready() -> void:
+	set_facing_direction()
+
+
+func set_facing_direction() -> void:
 	match direction_string:
 		DOWN_STRING:
 			facing_direction = Vector2.DOWN

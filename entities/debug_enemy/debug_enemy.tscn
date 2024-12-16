@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cam7gbao2lb53"]
+[gd_scene load_steps=57 format=3 uid="uid://cam7gbao2lb53"]
 
 [ext_resource type="Texture2D" uid="uid://cqbgqsc6nnol" path="res://entities/player/player.png" id="1_b8yph"]
 [ext_resource type="Script" path="res://entities/debug_enemy/debug_enemy.gd" id="1_oidli"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://components/frame_data/attack_frame.gd" id="13_xxn23"]
 [ext_resource type="Script" path="res://components/frame_data/frame_data_hitbox.gd" id="14_mfkcy"]
 [ext_resource type="Texture2D" uid="uid://dax3ixth422in" path="res://entities/player/player_roll.png" id="17_ven7s"]
+[ext_resource type="AudioStream" uid="uid://b77f8k1ry5ws4" path="res://entities/player/slash.wav" id="18_5kmxd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgxqc"]
 size = Vector2(10, 9)
@@ -114,7 +115,8 @@ knockback_force = 1.0
 knockback_direction = Vector2(1, 0)
 hitstop_value = 0.0
 
-[sub_resource type="Animation" id="Animation_w56l3"]
+[sub_resource type="Animation" id="Animation_2oj45"]
+resource_name = "RESET"
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -177,7 +179,7 @@ tracks/4/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_fkivk"]
+[sub_resource type="Animation" id="Animation_wgrep"]
 resource_name = "attack_down"
 length = 0.3
 step = 0.05
@@ -261,8 +263,22 @@ tracks/4/keys = {
 "method": &"end"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Components/Attacks/SlashAudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_5juyj"]
+[sub_resource type="Animation" id="Animation_r22oh"]
 resource_name = "attack_left"
 length = 0.3
 step = 0.05
@@ -346,8 +362,22 @@ tracks/4/keys = {
 "method": &"end"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Components/Attacks/SlashAudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_bh2t1"]
+[sub_resource type="Animation" id="Animation_dn087"]
 resource_name = "attack_right"
 length = 0.3
 step = 0.05
@@ -431,8 +461,22 @@ tracks/4/keys = {
 "method": &"end"
 }]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Components/Attacks/SlashAudioStreamPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_jf5e2"]
+[sub_resource type="Animation" id="Animation_mfc03"]
 resource_name = "attack_up"
 length = 0.3
 step = 0.05
@@ -528,8 +572,22 @@ tracks/5/keys = {
 "method": &"end"
 }]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Components/Attacks/SlashAudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
-[sub_resource type="Animation" id="Animation_wtaei"]
+[sub_resource type="Animation" id="Animation_p876s"]
 resource_name = "idle_down"
 length = 0.6
 loop_mode = 1
@@ -559,7 +617,7 @@ tracks/1/keys = {
 "values": [Vector2i(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_m0wu8"]
+[sub_resource type="Animation" id="Animation_wsbwk"]
 resource_name = "idle_left"
 length = 0.6
 loop_mode = 1
@@ -589,7 +647,7 @@ tracks/1/keys = {
 "values": [Vector2i(0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_k6fjp"]
+[sub_resource type="Animation" id="Animation_cqepg"]
 resource_name = "idle_right"
 length = 0.6
 loop_mode = 1
@@ -619,7 +677,7 @@ tracks/1/keys = {
 "values": [Vector2i(0, 2)]
 }
 
-[sub_resource type="Animation" id="Animation_544yb"]
+[sub_resource type="Animation" id="Animation_bu2dh"]
 resource_name = "idle_up"
 length = 0.6
 loop_mode = 1
@@ -649,7 +707,7 @@ tracks/1/keys = {
 "values": [Vector2i(0, 3)]
 }
 
-[sub_resource type="Animation" id="Animation_fget4"]
+[sub_resource type="Animation" id="Animation_h014r"]
 resource_name = "roll_down"
 length = 0.4
 step = 0.05
@@ -678,7 +736,7 @@ tracks/1/keys = {
 "values": [Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(1, 0), Vector2i(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ah7tx"]
+[sub_resource type="Animation" id="Animation_b0vm1"]
 resource_name = "roll_left"
 length = 0.4
 step = 0.05
@@ -707,7 +765,7 @@ tracks/1/keys = {
 "values": [Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(5, 1), Vector2i(1, 1), Vector2i(0, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_paxa5"]
+[sub_resource type="Animation" id="Animation_lodts"]
 resource_name = "roll_right"
 length = 0.4
 step = 0.05
@@ -736,7 +794,7 @@ tracks/1/keys = {
 "values": [Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2), Vector2i(1, 2), Vector2i(0, 2)]
 }
 
-[sub_resource type="Animation" id="Animation_1qjos"]
+[sub_resource type="Animation" id="Animation_3gqap"]
 resource_name = "roll_up"
 length = 0.4
 step = 0.05
@@ -765,7 +823,7 @@ tracks/1/keys = {
 "values": [Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(1, 3), Vector2i(0, 3)]
 }
 
-[sub_resource type="Animation" id="Animation_sylo8"]
+[sub_resource type="Animation" id="Animation_nikni"]
 resource_name = "walk_down"
 length = 0.6
 loop_mode = 1
@@ -795,7 +853,7 @@ tracks/1/keys = {
 "values": [ExtResource("1_b8yph")]
 }
 
-[sub_resource type="Animation" id="Animation_citxe"]
+[sub_resource type="Animation" id="Animation_lcdul"]
 resource_name = "walk_left"
 length = 0.6
 loop_mode = 1
@@ -825,7 +883,7 @@ tracks/1/keys = {
 "values": [ExtResource("1_b8yph")]
 }
 
-[sub_resource type="Animation" id="Animation_7d44g"]
+[sub_resource type="Animation" id="Animation_2f1bh"]
 resource_name = "walk_right"
 length = 0.6
 loop_mode = 1
@@ -855,7 +913,7 @@ tracks/1/keys = {
 "values": [ExtResource("1_b8yph")]
 }
 
-[sub_resource type="Animation" id="Animation_unn62"]
+[sub_resource type="Animation" id="Animation_l3xwf"]
 resource_name = "walk_up"
 length = 0.6
 loop_mode = 1
@@ -885,25 +943,25 @@ tracks/1/keys = {
 "values": [ExtResource("1_b8yph")]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bk7i8"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1kc1b"]
 _data = {
-"RESET": SubResource("Animation_w56l3"),
-"attack_down": SubResource("Animation_fkivk"),
-"attack_left": SubResource("Animation_5juyj"),
-"attack_right": SubResource("Animation_bh2t1"),
-"attack_up": SubResource("Animation_jf5e2"),
-"idle_down": SubResource("Animation_wtaei"),
-"idle_left": SubResource("Animation_m0wu8"),
-"idle_right": SubResource("Animation_k6fjp"),
-"idle_up": SubResource("Animation_544yb"),
-"roll_down": SubResource("Animation_fget4"),
-"roll_left": SubResource("Animation_ah7tx"),
-"roll_right": SubResource("Animation_paxa5"),
-"roll_up": SubResource("Animation_1qjos"),
-"walk_down": SubResource("Animation_sylo8"),
-"walk_left": SubResource("Animation_citxe"),
-"walk_right": SubResource("Animation_7d44g"),
-"walk_up": SubResource("Animation_unn62")
+"RESET": SubResource("Animation_2oj45"),
+"attack_down": SubResource("Animation_wgrep"),
+"attack_left": SubResource("Animation_r22oh"),
+"attack_right": SubResource("Animation_dn087"),
+"attack_up": SubResource("Animation_mfc03"),
+"idle_down": SubResource("Animation_p876s"),
+"idle_left": SubResource("Animation_wsbwk"),
+"idle_right": SubResource("Animation_cqepg"),
+"idle_up": SubResource("Animation_bu2dh"),
+"roll_down": SubResource("Animation_h014r"),
+"roll_left": SubResource("Animation_b0vm1"),
+"roll_right": SubResource("Animation_lodts"),
+"roll_up": SubResource("Animation_3gqap"),
+"walk_down": SubResource("Animation_nikni"),
+"walk_left": SubResource("Animation_lcdul"),
+"walk_right": SubResource("Animation_2f1bh"),
+"walk_up": SubResource("Animation_l3xwf")
 }
 
 [node name="DebugEnemy" type="CharacterBody2D" node_paths=PackedStringArray("state_machine", "movement_manager", "hp_manager", "hurtbox", "animation_player", "graphics")]
@@ -957,7 +1015,7 @@ autostart = true
 [node name="EnemyMovementManager" type="Node" parent="Components" node_paths=PackedStringArray("parent", "debug_draw")]
 script = ExtResource("3_bc6ag")
 parent = NodePath("../..")
-rays_amount = 12
+rays_amount = 32
 debug_draw = NodePath("../DebugDraw")
 
 [node name="StateMachine" parent="Components" node_paths=PackedStringArray("starting_state", "parent", "animation_player", "movement_manager", "hp_manager") instance=ExtResource("4_fhufe")]
@@ -1250,7 +1308,13 @@ collision_mask = 0
 script = ExtResource("13_xxn23")
 hitbox_owner = NodePath("../../../..")
 
+[node name="SlashAudioStreamPlayer" type="AudioStreamPlayer2D" parent="Components/Attacks"]
+stream = ExtResource("18_5kmxd")
+volume_db = 6.0
+pitch_scale = 2.0
+bus = &"SFX"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bk7i8")
+"": SubResource("AnimationLibrary_1kc1b")
 }

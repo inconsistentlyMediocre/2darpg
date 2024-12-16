@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bodl7v0ri5lsh"]
+[gd_scene load_steps=13 format=3 uid="uid://bodl7v0ri5lsh"]
 
 [ext_resource type="Script" path="res://entities/effects/explosion/explosion.gd" id="1_f4xqr"]
 [ext_resource type="Texture2D" uid="uid://baaeiyms5wxy7" path="res://entities/effects/explosion/explosion.png" id="1_o25xe"]
@@ -6,6 +6,18 @@
 [ext_resource type="Script" path="res://components/frame_data/attack_frame.gd" id="3_y2g6m"]
 [ext_resource type="Script" path="res://components/frame_data/frame_data_hitbox.gd" id="4_3a7fp"]
 [ext_resource type="Script" path="res://components/damage_data/attack_data.gd" id="5_3hk8r"]
+[ext_resource type="AudioStream" uid="uid://djdu16h1ugapt" path="res://entities/effects/explosion/explosion.wav" id="7_p4a8a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cggrs"]
+radius = 14.3178
+
+[sub_resource type="Resource" id="Resource_qerok"]
+script = ExtResource("5_3hk8r")
+damage_amount = 4
+damage_type = 0
+knockback_force = 4.0
+knockback_direction = Vector2(0, 0)
+hitstop_value = 0.0
 
 [sub_resource type="Animation" id="Animation_ib5bo"]
 resource_name = "explode"
@@ -14,7 +26,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -26,7 +38,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/path = NodePath("Graphics/Sprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -82,13 +94,27 @@ tracks/2/keys = {
 "method": &"end"
 }]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer2D")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_kbjhq"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -100,7 +126,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/path = NodePath("Graphics/Sprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -116,32 +142,22 @@ _data = {
 "explode": SubResource("Animation_ib5bo")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cggrs"]
-radius = 14.3178
-
-[sub_resource type="Resource" id="Resource_qerok"]
-script = ExtResource("5_3hk8r")
-damage_amount = 6
-damage_type = 0
-knockback_force = 2.0
-knockback_direction = Vector2(0, 0)
-hitstop_value = 0.0
-
-[node name="Explosion" type="Node2D"]
+[node name="Explosion" type="Node2D" node_paths=PackedStringArray("graphics")]
 script = ExtResource("1_f4xqr")
+graphics = NodePath("Graphics")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics"]
 visible = false
 texture = ExtResource("1_o25xe")
 offset = Vector2(0, -5)
 hframes = 6
 vframes = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_tord7")
-}
-autoplay = "explode"
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_p4a8a")
+bus = &"SFX"
 
 [node name="AttackFrameData" type="Node2D" parent="."]
 script = ExtResource("2_juqop")
@@ -228,5 +244,11 @@ collision_layer = 16
 collision_mask = 0
 script = ExtResource("3_y2g6m")
 hitbox_owner = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tord7")
+}
+autoplay = "explode"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

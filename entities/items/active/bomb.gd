@@ -3,6 +3,7 @@ extends Node2D
 
 
 @export var explosion_scene: PackedScene = preload("res://entities/effects/explosion/explosion.tscn")
+@export var graphics: Node2D
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

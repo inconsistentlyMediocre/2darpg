@@ -1,7 +1,7 @@
 extends Node2D
 
 var ray_directions: Array[Vector2] = []
-var rays_amount: int = 12
+var rays_amount: int = 32
 var interest: Array[float] = []
 var danger: Array[float] = []
 var dir: Vector2 = Vector2.ZERO

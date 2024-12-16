@@ -11,8 +11,14 @@ func get_movement_direction() -> Vector2:
 	if not use_analog_movement:
 		direction = direction.normalized()
 	set_direction_string(direction)
+	
+	
 	if direction != Vector2.ZERO:
-		facing_direction = direction.normalized()
+		set_facing_direction()
+		#if facing_direction.x == 0 and direction.abs().x > 0.5:
+			#facing_direction.x = 1.0
+		#if facing_direction.y == 0 and direction.abs().y > 0.5:
+			#facing_direction.y = 1.0
 	
 	return direction
 

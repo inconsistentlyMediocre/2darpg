@@ -8,6 +8,8 @@ extends Hitbox
 		btn_add_hitbox = false
 		add_hitbox()
 
+@export var stream_player: AudioStreamPlayer2D
+
 
 func _enter_tree() -> void:
 	# Deactivate default collision mask and layer

@@ -7,7 +7,7 @@ enum ReflectionTypes {
 }
 
 @export var reflecting_surface: Node2D
-@export var reflected_entities: Array[MovingEntity]
+@export var reflected_entities: Array[Node2D]
 @export var reflection_modulate: Color = Color.WHITE
 @export var reflection_mask_color: Color = Color.WHITE
 @export var reflection_type: ReflectionTypes
@@ -26,6 +26,9 @@ func _ready() -> void:
 	#reflection_material.resource_local_to_scene = true
 	#reflection_material.set_shader_parameter("reflectable_color", reflection_mask_color)
 	#REFLECTION_MATERIAL.call_deferred("set_shader_parameter", "reflectable_color", reflection_mask_color)
+	
+	await WorldState.level_set
+	WorldState.current_level.child_entered_tree.connect(add_reflected_entities)
 	
 	var reflecting_mask: Node2D = reflecting_surface.duplicate()
 	reflecting_mask.global_position = reflecting_surface.global_position
@@ -66,51 +69,70 @@ func _process(delta: float) -> void:
 				elif reflection_type == ReflectionTypes.MIRROR:
 					var distance: float = reflected_entities[i].global_position.y - reflecting_surface.global_position.y
 					reflected_graphics[i].global_position.x = reflected_entities[i].global_position.x
-					reflected_graphics[i].global_position.y = reflecting_surface.global_position.y - distance
+					reflected_graphics[i].global_position.y = reflecting_surface.global_position.y - reflecting_surface.get_rect().size.y - reflecting_surface.offset.y / 4 - distance
 					reflected_graphics[i].visible = reflected_graphics[i].global_position.y < reflected_entities[i].global_position.y - 48
 					#reflected_graphics[i].modulate.a = 1.0 - (distance / 4) * opacity_factor
 				for j in reflected_graphics[i].get_children().size():
 					if reflected_graphics[i].get_child(j) is Sprite2D:
-						reflected_graphics[i].get_child(j).texture = reflected_entities[i].graphics.get_child(j).texture
-						reflected_graphics[i].get_child(j).visible = reflected_entities[i].graphics.get_child(j).visible
-						reflected_graphics[i].get_child(j).frame_coords = reflected_entities[i].graphics.get_child(j).frame_coords
-						if reflection_type == ReflectionTypes.MIRROR:
-							if reflected_entities[i].graphics.get_child(j).frame_coords.y == 0:
-								reflected_graphics[i].get_child(j).frame_coords.y = 3
-								reflected_graphics[i].get_child(j).flip_h = true
-								if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
-									match reflected_graphics[i].get_child(j).frame_coords.x:
-										1:
-											reflected_graphics[i].get_child(j).frame_coords.x = 0
-										2:
-											reflected_graphics[i].get_child(j).frame_coords.x = 5
-										3:
-											reflected_graphics[i].get_child(j).frame_coords.x = 4
-										4:
-											reflected_graphics[i].get_child(j).frame_coords.x = 3
-										5:
-											reflected_graphics[i].get_child(j).frame_coords.x = 2
-										0:
-											reflected_graphics[i].get_child(j).frame_coords.x = 1
-							elif reflected_entities[i].graphics.get_child(j).frame_coords.y == 3:
-								reflected_graphics[i].get_child(j).frame_coords.y = 0
-								reflected_graphics[i].get_child(j).flip_h = true
-								if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
-									match reflected_graphics[i].get_child(j).frame_coords.x:
-										1:
-											reflected_graphics[i].get_child(j).frame_coords.x = 0
-										2:
-											reflected_graphics[i].get_child(j).frame_coords.x = 5
-										3:
-											reflected_graphics[i].get_child(j).frame_coords.x = 4
-										4:
-											reflected_graphics[i].get_child(j).frame_coords.x = 3
-										5:
-											reflected_graphics[i].get_child(j).frame_coords.x = 2
-										0:
-											reflected_graphics[i].get_child(j).frame_coords.x = 1
-							else:
-								reflected_graphics[i].get_child(j).flip_h = false
+						reflected_graphics[i].get_child(j).texture =  reflected_entities[i].graphics.get_child(j).texture
+						reflected_graphics[i].get_child(j).visible =  reflected_entities[i].graphics.get_child(j).visible
+						reflected_graphics[i].get_child(j).frame_coords =  reflected_entities[i].graphics.get_child(j).frame_coords
+						if reflected_entities[i] is MovingEntity:
+							if reflection_type == ReflectionTypes.MIRROR:
+								if reflected_entities[i].graphics.get_child(j).frame_coords.y == 0:
+									reflected_graphics[i].get_child(j).frame_coords.y = 3
+									reflected_graphics[i].get_child(j).flip_h = true
+									if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
+										match reflected_graphics[i].get_child(j).frame_coords.x:
+											1:
+												reflected_graphics[i].get_child(j).frame_coords.x = 0
+											2:
+												reflected_graphics[i].get_child(j).frame_coords.x = 5
+											3:
+												reflected_graphics[i].get_child(j).frame_coords.x = 4
+											4:
+												reflected_graphics[i].get_child(j).frame_coords.x = 3
+											5:
+												reflected_graphics[i].get_child(j).frame_coords.x = 2
+											0:
+												reflected_graphics[i].get_child(j).frame_coords.x = 1
+								elif reflected_entities[i].graphics.get_child(j).frame_coords.y == 3:
+									reflected_graphics[i].get_child(j).frame_coords.y = 0
+									reflected_graphics[i].get_child(j).flip_h = true
+									if reflected_entities[i].animation_player.current_animation.begins_with("walk"):
+										match reflected_graphics[i].get_child(j).frame_coords.x:
+											1:
+												reflected_graphics[i].get_child(j).frame_coords.x = 0
+											2:
+												reflected_graphics[i].get_child(j).frame_coords.x = 5
+											3:
+												reflected_graphics[i].get_child(j).frame_coords.x = 4
+											4:
+												reflected_graphics[i].get_child(j).frame_coords.x = 3
+											5:
+												reflected_graphics[i].get_child(j).frame_coords.x = 2
+											0:
+												reflected_graphics[i].get_child(j).frame_coords.x = 1
+								else:
+									reflected_graphics[i].get_child(j).flip_h = false
 			else:
 				reflected_graphics[i].queue_free()
 				reflected_graphics[i] = null
+
+
+func add_reflected_entities(node: Node) -> void:
+	if node is Node2D:
+		reflected_entities.append(node)
+		reflected_graphics.append(node.graphics.duplicate())
+		for sprite in reflected_graphics[-1].get_children():
+			if sprite is Sprite2D:
+				if reflection_type == ReflectionTypes.WATER:
+					sprite.offset.y *= -1
+					sprite.offset.y += 4
+					sprite.flip_v = true
+				if reflection_type == ReflectionTypes.MIRROR:
+					sprite.offset.y += 48
+					#sprite.z_index = 1
+					sprite.z_index *= -1
+					mask.z_index = 1
+		reflections.add_child(reflected_graphics[-1])

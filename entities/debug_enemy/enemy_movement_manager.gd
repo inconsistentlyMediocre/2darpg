@@ -68,6 +68,8 @@ func set_danger() -> void:
 				#print(parent.global_position.distance_to(result["position"]))
 				var distance: float = parent.global_position.distance_to(result["position"])
 				var score: float = remap(distance, 0.0, look_ahead, 1.0, 0.0)
+				if result["collider"] is Bomb:
+					score = 1.0
 				danger[i] = score
 				interest[i] -= score
 
@@ -134,7 +136,8 @@ func get_movement_direction() -> Vector2:
 		direction = direction.normalized()
 		set_direction_string(direction)
 		if direction != Vector2.ZERO:
-			facing_direction = direction.normalized()
+			set_facing_direction()
+			#facing_direction = direction.ceil().normalized()
 		return direction
 	return Vector2.ZERO
 
