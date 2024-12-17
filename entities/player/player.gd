@@ -9,6 +9,18 @@ extends MovingEntity
 
 var current_item_spawnable: PackedScene = preload("res://entities/items/active/bomb.tscn")
 
+@onready var camera_2d: Camera2D = $Camera2D
+
+
+func _ready() -> void:
+	super()
+	
+	camera_2d.limit_left = 0
+	camera_2d.limit_top = 0
+	if WorldState.current_level:
+		camera_2d.limit_right = WorldState.current_level.map_size.x
+		camera_2d.limit_bottom = WorldState.current_level.map_size.y
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Utils.validate([state_machine]):

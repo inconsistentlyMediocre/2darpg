@@ -11,3 +11,4 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		var explosion: Effect = explosion_scene.instantiate()
 		explosion.global_position = global_position
 		WorldState.current_level.add_child(explosion)
+		queue_free()

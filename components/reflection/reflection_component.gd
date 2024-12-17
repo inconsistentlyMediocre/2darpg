@@ -27,7 +27,7 @@ func _ready() -> void:
 	#reflection_material.set_shader_parameter("reflectable_color", reflection_mask_color)
 	#REFLECTION_MATERIAL.call_deferred("set_shader_parameter", "reflectable_color", reflection_mask_color)
 	
-	await WorldState.level_set
+	#await WorldState.level_set
 	WorldState.current_level.child_entered_tree.connect(add_reflected_entities)
 	
 	var reflecting_mask: Node2D = reflecting_surface.duplicate()

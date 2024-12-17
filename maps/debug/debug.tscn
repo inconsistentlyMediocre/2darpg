@@ -373,9 +373,10 @@ sources/3 = SubResource("TileSetAtlasSource_r807r")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihq5x"]
 size = Vector2(60, 28)
 
-[node name="Debug" type="Node2D"]
+[node name="Debug" type="Node2D" node_paths=PackedStringArray("tilemap")]
 y_sort_enabled = true
 script = ExtResource("1_bnxdm")
+tilemap = NodePath("TileMap")
 
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -392,7 +393,7 @@ navigation_enabled = false
 
 [node name="ReflectionComponent" parent="TileMap" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("2_lym22")]
 reflecting_surface = NodePath("../Water")
-reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy"), NodePath("../../Mirror/Mirror")]
+reflected_entities = [NodePath("../../Player"), NodePath("../../DebugEnemy")]
 reflection_mask_color = Color(0, 0.517647, 0.847059, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_0buae")]
@@ -417,7 +418,7 @@ shape = SubResource("RectangleShape2D_ihq5x")
 y_sort_enabled = true
 
 [node name="Mirror" parent="Mirror" instance=ExtResource("6_6w2uy")]
-position = Vector2(320, 256)
+position = Vector2(784, 256)
 
 [node name="ReflectionComponent" parent="Mirror" node_paths=PackedStringArray("reflecting_surface", "reflected_entities") instance=ExtResource("2_lym22")]
 reflecting_surface = NodePath("../Mirror/Graphics/MirrorSprite")
