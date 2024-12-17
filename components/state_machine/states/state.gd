@@ -55,8 +55,8 @@ func get_hit() -> Attack:
 	return hp_manager.get_hit()
 
 
-func get_use_item() -> bool:
-	return movement_manager.get_use_item()
+func get_primary_use_item() -> bool:
+	return movement_manager.get_primary_use_item()
 
 
 func play_animation() -> void:

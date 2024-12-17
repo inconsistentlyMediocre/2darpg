@@ -50,7 +50,7 @@ func get_roll() -> bool:
 	return false
 
 
-func get_use_item() -> bool:
+func get_primary_use_item() -> bool:
 	return false
 
 

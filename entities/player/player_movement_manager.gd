@@ -38,5 +38,5 @@ func get_roll() -> bool:
 	return Input.is_action_just_pressed("roll")
 
 
-func get_use_item() -> bool:
-	return Input.is_action_just_pressed("use_item")
+func get_primary_use_item() -> bool:
+	return Input.is_action_just_pressed("primary_use_item")
