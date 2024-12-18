@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://q7nhbek3t3vm"]
+[gd_scene load_steps=45 format=3 uid="uid://q7nhbek3t3vm"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_qxaui"]
 [ext_resource type="Script" path="res://entities/player/player_movement_manager.gd" id="3_h3yip"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://components/state_machine/states/roll.gd" id="12_h62l3"]
 [ext_resource type="Script" path="res://components/damage_data/weapon_component.gd" id="13_vqbsa"]
 [ext_resource type="Script" path="res://components/state_machine/states/hurt.gd" id="14_it6gm"]
+[ext_resource type="Script" path="res://components/state_machine/states/hold.gd" id="15_4u4sa"]
 [ext_resource type="Script" path="res://components/damage_components/health_manager_component.gd" id="15_f2yjr"]
 [ext_resource type="PackedScene" uid="uid://dy0bwx8ips2c5" path="res://components/damage_components/hurtbox_component.tscn" id="16_lyntk"]
 [ext_resource type="Script" path="res://components/frame_data/attack_frame_data.gd" id="19_nhquf"]
@@ -179,22 +180,24 @@ animation_player = NodePath("../../AnimationPlayer")
 movement_manager = NodePath("../PlayerMovementManager")
 hp_manager = NodePath("../HPManager")
 
-[node name="Idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state", "attack_state", "hurt_state", "talk_state")]
+[node name="Idle" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state", "attack_state", "hurt_state", "talk_state", "hold_state")]
 script = ExtResource("7_takg5")
 move_state = NodePath("../Move")
 attack_state = NodePath("../Attack")
 hurt_state = NodePath("../Hurt")
 talk_state = NodePath("../Talk")
+hold_state = NodePath("../Hold")
 animation_name = "idle"
 velocity_weight = 20.0
 
-[node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state", "hurt_state")]
+[node name="Move" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state", "hurt_state", "hold_state")]
 script = ExtResource("7_bawcg")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 talk_state = NodePath("../Talk")
 roll_state = NodePath("../Roll")
 hurt_state = NodePath("../Hurt")
+hold_state = NodePath("../Hold")
 animation_name = "walk"
 speed = 85.0
 velocity_weight = 10.0
@@ -234,6 +237,18 @@ attack_state = NodePath("../Attack")
 hurtbox = NodePath("../../Hurtbox")
 speed = 400.0
 velocity_weight = 20.0
+
+[node name="Hold" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state", "hurt_state", "hold_state")]
+script = ExtResource("15_4u4sa")
+idle_state = NodePath("../Idle")
+attack_state = NodePath("../Attack")
+talk_state = NodePath("../Talk")
+roll_state = NodePath("../Roll")
+hurt_state = NodePath("../Hurt")
+hold_state = NodePath(".")
+animation_name = "walk_hold_one_hand"
+speed = 85.0
+velocity_weight = 10.0
 
 [node name="Weapon" type="Node" parent="Components" node_paths=PackedStringArray("weapon_sprite")]
 script = ExtResource("13_vqbsa")

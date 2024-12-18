@@ -59,6 +59,10 @@ func get_primary_use_item() -> bool:
 	return movement_manager.get_primary_use_item()
 
 
+func get_secondary_use_item() -> bool:
+	return movement_manager.get_secondary_use_item()
+
+
 func play_animation() -> void:
 	if not animation_name == "":
 		animation_player.play(animation_name + "_" + movement_manager.direction_string)

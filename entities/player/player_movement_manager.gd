@@ -40,3 +40,7 @@ func get_roll() -> bool:
 
 func get_primary_use_item() -> bool:
 	return Input.is_action_just_pressed("primary_use_item")
+
+
+func get_secondary_use_item() -> bool:
+	return Input.is_action_just_pressed("secondary_use_item")

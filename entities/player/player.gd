@@ -10,6 +10,7 @@ extends MovingEntity
 var current_item_spawnable: PackedScene = preload("res://entities/items/active/bomb.tscn")
 
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var sprite: Sprite2D = $Graphics/Sprite
 
 
 func _ready() -> void:

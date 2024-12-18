@@ -1,3 +1,4 @@
+class_name MoveState
 extends State
 
 
@@ -6,6 +7,7 @@ extends State
 @export var talk_state: State
 @export var roll_state: State
 @export var hurt_state: State
+@export var hold_state: State
 
 
 func process_input(event: InputEvent) -> State:
@@ -27,8 +29,11 @@ func process_physics(delta: float) -> State:
 		return talk_state
 	if get_primary_use_item():
 		var spawnable: Node2D = parent.current_item_spawnable.instantiate()
-		spawnable.global_position = parent.global_position
-		WorldState.current_level.add_child(spawnable)
+		parent.add_child(spawnable)
+		hold_state.held_item = spawnable
+		return hold_state
+		#spawnable.global_position = parent.global_position
+		#WorldState.current_level.add_child(spawnable)
 	
 	var attack: Attack = get_hit()
 	if attack:

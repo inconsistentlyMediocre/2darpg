@@ -54,6 +54,10 @@ func get_primary_use_item() -> bool:
 	return false
 
 
+func get_secondary_use_item() -> bool:
+	return false
+
+
 func set_direction_string(direction: Vector2) -> void:
 	if direction.x != 0.0:
 		if direction.x > 0.0:
