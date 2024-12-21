@@ -95,7 +95,6 @@ radius = 3.16228
 [node name="Bomb" type="CharacterBody2D" node_paths=PackedStringArray("graphics")]
 y_sort_enabled = true
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_4b6qi")
 graphics = NodePath("Graphics")
 

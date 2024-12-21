@@ -238,8 +238,9 @@ hurtbox = NodePath("../../Hurtbox")
 speed = 400.0
 velocity_weight = 20.0
 
-[node name="Hold" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("idle_state", "attack_state", "talk_state", "roll_state", "hurt_state", "hold_state")]
+[node name="Hold" type="Node" parent="Components/StateMachine" node_paths=PackedStringArray("move_state", "idle_state", "attack_state", "talk_state", "roll_state", "hurt_state", "hold_state")]
 script = ExtResource("15_4u4sa")
+move_state = NodePath("../Move")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 talk_state = NodePath("../Talk")

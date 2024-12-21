@@ -3,6 +3,7 @@ extends MoveState
 
 
 @export var offset: Vector2 = Vector2(-8, -12)
+@export var move_state: State
 
 var held_item: Node2D
 var original_animation_name: String = ""
@@ -30,16 +31,16 @@ func process_physics(delta: float) -> State:
 		if movement_manager.facing_direction != Vector2.DOWN and movement_manager.facing_direction != Vector2.UP:
 			held_item.global_position.y += offset.y
 		#held_item.is_in_air = true
-		held_item.throw(parent.global_position + movement_manager.facing_direction * 100)
+		held_item.throw(parent.global_position, movement_manager.facing_direction, offset.y)
 		WorldState.current_level.add_child(held_item)
-		return idle_state
+		return move_state
 	
 	if get_secondary_use_item():
 		parent.remove_child(held_item)
 		held_item.position = Vector2.ZERO
 		held_item.global_position = parent.global_position
 		WorldState.current_level.add_child(held_item)
-		return idle_state
+		return move_state
 	
 	var attack: Attack = get_hit()
 	if attack:

@@ -399,8 +399,9 @@ reflection_mask_color = Color(0, 0.517647, 0.847059, 1)
 [node name="Player" parent="." instance=ExtResource("1_0buae")]
 position = Vector2(320, 312)
 
-[node name="DebugEnemy" parent="." instance=ExtResource("5_rh7wp")]
+[node name="DebugEnemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_rh7wp")]
 position = Vector2(318, 133)
+target = NodePath("../Player")
 
 [node name="Tree" type="StaticBody2D" parent="."]
 position = Vector2(320, 200)
